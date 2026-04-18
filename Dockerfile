@@ -9,7 +9,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # ---------- Run stage ----------
-FROM openjdk:17-jdk-slim
+FROM openjdk-17-jre-headless
 
 WORKDIR /app
 
