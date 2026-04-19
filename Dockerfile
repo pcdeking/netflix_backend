@@ -32,6 +32,7 @@ FROM ubuntu
  WORKDIR /app
 
 # # Copy source files and pom.xml
+ COPY application.properties /app/src/main/resources/application.properties
  COPY ./src /app/src
  COPY ./pom.xml /app
 

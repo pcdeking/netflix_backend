@@ -12,8 +12,26 @@ jobs:
     - name: Check out the repository
       uses: actions/checkout@v2
 
+    - name: configure AWS credentials
+      uses: aws-action/configure-aws-credentials@v4
+      with:
+         aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+         aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+         aws-region: ${{secrets.AWS_REGION}}
+
+    - name: login to AWS ECR
+      id: login-ecr 
+      uses: aws-actions/amozon-ecr-login@v2 
+
     - name: Docker build
       run: |
+        echo "${{vars.APPLICATION_PROPERTIES}}" > application.properties
+        ls -la
+        cat application.properties
         docker build -t netfix_backend:latest .
       
+    - name: docker push
+      run: |
+        docker tag netflix_backend:latest 050305920449.dkr.ecr.us-east-1.amazonaws.com/netflix_backend:${{GITHUB_RUN_NUMBER}}
+        docker push 050305920449.dkr.ecr.us-east-1.amazonaws.com/netflix_backend:${{GITHUB_RUN_NUMBER}}
   
