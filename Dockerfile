@@ -38,6 +38,10 @@ FROM ubuntu
 
 # # Build the application
  RUN mvn -f /app/pom.xml clean package -DskipTests
+
+
+ # Copy built jar to a fixed name
+RUN cp /app/target/*.jar /app/app.jar
 RUN ls -la /app/target
 
 # # Build target
