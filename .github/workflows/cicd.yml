@@ -2,7 +2,7 @@ name: Build and push docker image
 
 on:
   push:
-    branchs: [main]
+    branches: [main]
 
 jobs:
   builds-and-push:
@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Check out the repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
@@ -28,7 +28,7 @@ jobs:
         echo "${{vars.APPLICATION_PROPERTIES}}" > application.properties
         ls -la
         cat application.properties
-        docker build -t netfix_backend:latest .
+        docker build -t netflix_backend:latest .
       
     - name: docker push
       run: |
